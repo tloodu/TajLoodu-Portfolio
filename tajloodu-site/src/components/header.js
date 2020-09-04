@@ -1,8 +1,17 @@
 import { Link } from "gatsby"
-import PropTypes from "prop-types"
-import React from "react"
+import React, { useState, useEffect, useContext } from "react"
+import Helmet from "react-helmet"
+import styled from "styled-components"
+import { motion, useAnimation } from "framer-motion"
 
-const Header = ({ siteTitle }) => (
+import Context from "../context"
+import { detectMobileAndTablet, isSSR } from "../utils/"
+import ContentWrapper from "../styles/ContentWrapper"
+import Logo from "./logo"
+import Sidebar from "./sidebar"
+import Navbar from "./navbar"
+
+const StyledHeader = ({ siteTitle }) => (
   <header
     style={{
       background: `rebeccapurple`,
