@@ -70,41 +70,56 @@ const StyledMenu = styled.button`
   }
 `
 
-const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
-    }}
-  >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          {siteTitle}
+const Header = () => {
+  const { isIntroDone } = useContext(Context).useState
+  const [open, setOpen] = useState(false)
+  const [windowWidth, setWindowWidth] = useState(0)
+
+  useEffect(() => {
+    let handleWindowSizeChange
+    if (!isSSR) {
+      handleWindowSizeCHnage = () => setWindowWidth(window.innerWidth)
+      setWindowWidth(window.innerWidth)
+    }
+    window.addEventListener("resize", handleWindowSizeChange)
+    return () => window.removeEventListener("resize", handleWindowSizeChange)
+  }, [windowWidth])
+
+  const controls = useAnimation()
+  useEffect(() => {
+    if (isIntroDone) controls.start({ opacity: 1, y: 0, transition: { delay: 0.2 } })
+  }, [isIntroDone, controls])
+
+  let navigation
+  if (detectMobileAndTablet(windowWidth)) {
+    navigation = (
+      <>
+      <StyledMenu
+        aria-controls="sidebar"
+        open={open}
+        onClick={() => setOpen(!open)}
+      >
+        <div />
+        <div />
+        <div />
+      </StyledMenu>
+      <Sidebar id="sidebar" open={open} setOpen={setOpen} />
+    </>
+    )
+  } else {
+    navigation = <Navbar />
+  }
+
+  return (
+    <StyledHeader initial = {{ opacity: 0, y: -10 }} animate={controls}>
+      <Helmet bodyAttributes={{ class: open ? "blur" : ""}} />
+      <StyledContentWrapper>
+        <Link to="/" aria-label="home">
+          <Logo color="primary" size="2rem" />
         </Link>
-      </h1>
-    </div>
-  </header>
-)
-
-Header.propTypes = {
-  siteTitle: PropTypes.string,
-}
-
-Header.defaultProps = {
-  siteTitle: ``,
+      </StyledContentWrapper>
+    </StyledHeader>
+  )
 }
 
 export default Header
