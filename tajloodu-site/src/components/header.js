@@ -11,7 +11,23 @@ import Logo from "./logo"
 import Sidebar from "./sidebar"
 import Navbar from "./navbar"
 
-const StyledHeader = ({ siteTitle }) => (
+const StyledHeader = motion.custom(styled.header`
+  width: 100%;
+  height: ${({ theme }) => theme.headerHeight};
+  background: ${({ theme }) => theme.colors.background};
+`)
+
+const StyledContentWrapper = styled(ContentWrapper)`
+  && {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+`
+
+const Header = ({ siteTitle }) => (
   <header
     style={{
       background: `rebeccapurple`,
