@@ -10,6 +10,10 @@ import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
+import Theme from "../styles/Theme"
+
+const { colors } = Theme
+
 function SEO({ description, lang, meta, title }) {
   const { site } = useStaticQuery(
     graphql`
@@ -67,6 +71,14 @@ function SEO({ description, lang, meta, title }) {
           name: `twitter:description`,
           content: metaDescription,
         },
+        {
+          name: `msapplication-TileColor`,
+          content: colors.primary,
+        },
+        {
+          name: `theme-color`,
+          content: colors.primary,
+        }
       ].concat(meta)}
     />
   )
@@ -81,8 +93,8 @@ SEO.defaultProps = {
 SEO.propTypes = {
   description: PropTypes.string,
   lang: PropTypes.string,
-  meta: PropTypes.arrayOf(PropTypes.object),
-  title: PropTypes.string.isRequired,
+  meta: PropTypes.array,
+  title: PropTypes.string,
 }
 
 export default SEO
