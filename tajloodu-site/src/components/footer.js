@@ -12,7 +12,7 @@ const StyledFooter = styled.footer`
     justify-content: center;
     align-items: center;
     font-size: 0.8rem;
-    text-transform: uppercase;
+    text-transform: capitalize;
     letter-spacing: +1px;
     font-weight: 700;
 `
