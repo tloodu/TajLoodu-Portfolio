@@ -17,8 +17,7 @@ const Home = () => {
     return (
         <StyledSection id="home">
             <h1 className="title">
-                Hello <span role="img" aria-label="emoji">👋</span><br />
-                My name is Taj Loodu
+                My name Taj Loodu!
             </h1>
             <h2 className="subtitle">
                 I am a student at the University of Ottawa
