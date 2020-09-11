@@ -13,18 +13,23 @@ const StyledSection = styled.section`
     }
 `
 
-const Home = () => {
+const Home = ({ content }) => {
+    const { frontmatter, rawMarkdownBody } = content
     return (
         <StyledSection id="home">
             <h1 className="title">
-                My name Taj Loodu!
+                {frontmatter.greetings}{" "}
+                <span role="img" aria-label="emoji">
+                    {frontmatter.emoji}
+                </span>
+                <br />
+                {frontmatter.title}
             </h1>
             <h2 className="subtitle">
-                I am a student at the University of Ottawa
+                {frontmatter.subtitlePrefix}{" "}
+                <span className="highlighted">{frontmatter.subtitleHighlight}</span>
             </h2>
-            <div className="description">
-                Based in Ottawa
-            </div>
+            <div className="description">{rawMarkdownBody}</div>
         </StyledSection>
     )
 }
